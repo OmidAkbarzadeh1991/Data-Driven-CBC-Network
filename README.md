@@ -6,11 +6,14 @@ available computational resources.
 
 > **Note** The reported **running times (RT)** and **memory usage (MU)** correspond to the time  
 > needed to solve the SOS problem for each subsystem, as detailed in **Algorithm 1**.
+> > **Note on memory units**  
+> The `memused` function reports usage in **bytes**. For clarity, we convert these values to **megabits** before listing them in **Table&nbsp;1** and **Table&nbsp;2**.
+
 
 ## Prerequisites & Installation
 
 ### Supported operating systems
-Any relatively recent version of **MATLAB** on any OS should work, but for consistent results we recommend the version used in our tests: **MATLAB R2023b**.
+Any relatively recent version of **MATLAB** on any OS should work, but for consistent results, we recommend the version used in our tests: **MATLAB R2023b**.
 
 ### Required optimization toolboxes & solvers  
 Add the following packages to your MATLAB path:
