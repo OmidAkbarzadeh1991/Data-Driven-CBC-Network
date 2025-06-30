@@ -60,3 +60,25 @@ Follow the steps below **for each toolbox** (e.g., **YALMIP R20210331** and **SO
 2. In MATLAB’s **Current Folder** browser, right-click each folder and choose  
    **Add to Path → Selected Folders and Subfolders**.
 
+### MOSEK 10.1.29 setup
+
+1. **Get a license**  
+   - Request a free academic license → [MOSEK Academic Licenses](https://www.mosek.com/products/academic-licenses/)  
+   - Or request a time-limited trial license → [MOSEK Trial Licenses](https://www.mosek.com/products/trial/)  
+   - Watch for an email (check your spam folder) containing the `mosek.lic` file.
+
+2. **Save the license file**  
+   - Download the attached `mosek.lic` from the email.
+
+3. **Place `mosek.lic` in the correct folder**
+
+   | OS       | Destination path (create the folder if it doesn’t exist)             |
+   |----------|---------------------------------------------------------------------|
+   | Linux    | `/home/<YOUR_USER_NAME>/mosek/mosek.lic`                            |
+   | macOS    | `/Users/<YOUR_USER_NAME>/mosek/mosek.lic`                           |
+   | Windows  | `C:\Users\<YOUR_USER_NAME>\mosek\mosek.lic`                         |
+
+4. **Install MOSEK binaries**  
+   Follow the OS-specific installation guide in the MOSEK documentation: <https://docs.mosek.com/10.1/install/installation.html>.
+
+
