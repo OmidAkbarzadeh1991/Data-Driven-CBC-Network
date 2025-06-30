@@ -80,8 +80,7 @@ Follow the steps below **for each toolbox** (e.g., **YALMIP R20210331** and **SO
 
 4. **Install MOSEK binaries**  
    Follow the OS-specific installation guide in the MOSEK documentation: <https://docs.mosek.com/10.1/install/installation.html>.
-
-   ### How to run the code
+### How to run the code
 
 To regenerate the results presented in the paper:
 
