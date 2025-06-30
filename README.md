@@ -87,7 +87,7 @@ Follow the steps below **for each toolbox** (e.g., **YALMIP R20210331** and **SO
 
 To regenerate the results presented in the paper:
 
-1. **Extract** the attached `.zip` archive to a folder on your machine.  
+1. **Download** the relevant script.  
 2. **Open MATLAB**.  
 3. **Add YALMIP, SOSTOOLS, and MOSEK** (and their subfolders) to your MATLAB path.  
 
