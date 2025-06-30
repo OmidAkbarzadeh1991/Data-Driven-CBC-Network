@@ -61,6 +61,9 @@ N0T = [];
 
 %=========================== ODE ==========================================
 
+% We note that the ODE solver in the subsequent procedure is solely intended for the sake of data collection, 
+% which means that if the data is given, this block of code can be commented out, and instead, the given data with the appropriate name should be utilized.
+
 expandedArray = [];
 
 for i = 1:T
