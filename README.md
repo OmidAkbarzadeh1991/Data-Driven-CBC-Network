@@ -1,6 +1,6 @@
 Our simulations were executed in **MATLAB R2023b** on a **MacBook M2** with **32 GB RAM**.  
 The values reported in **Table 1** and **Table 2** refer only to the scripts for **Algorithm 1**  
-(`xxxxx_Algorithm_1`). In contrast, the network simulation scripts (`xxxxx_Network_Simulation`)  
+(`xxxxx_Algorithm_1`). In contrast, the network simulation scripts (`xxxxx_Network_Simulation`) for generating the corresponding figures  
 may take **more than 30 minutes** to finish, depending on the number of subsystems and the  
 available computational resources.  
 
