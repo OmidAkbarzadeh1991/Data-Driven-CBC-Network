@@ -57,15 +57,11 @@ end
 
 for i = 1:N
     if i <= 300
-        Ai = A1;  Di = D_1;
-    elseif i == 301
-        Ai = A2;  Di = D_4;
+        Ai = A1;
     elseif i <= 600
-        Ai = A2;  Di = D_2;
-    elseif i == 601
-        Ai = A3;  Di = D5;
+        Ai = A2;
     else
-        Ai = A3;  Di = D3;
+        Ai = A3;
     end
 
     rows = (i-1)*m + (1:m);
@@ -75,6 +71,20 @@ for i = 1:N
 
     if i < N
         next_rows = i*m + (1:m);
+        target = i + 1;
+
+        if target <= 300
+            Di = D_1;
+        elseif target == 301
+            Di = D_4;
+        elseif target <= 600
+            Di = D_2;
+        elseif target == 601
+            Di = D5;
+        else
+            Di = D3;
+        end
+
         % only fill the first two monomial columns
         A_network(next_rows, cols(1:2)) = Di;
         % leave the 3rd column as zeros
