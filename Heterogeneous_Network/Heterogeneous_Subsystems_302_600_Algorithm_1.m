@@ -84,7 +84,7 @@ for i = 1:T
 
     Vector_W = vertcat(Vector_W, tempArray.');
 
-    odeSystem = @(t, x) A * M.' + B * u(i,:).' + Matrix_D * Vector_W(i,:).'; 
+    odeSystem = @(t, x) A * [x(1); x(2); x(1)^2] + B * u(i,:).' + Matrix_D * Vector_W(i,:).'; 
     
     
       tspan = [(i-1) * tau  i * tau];
@@ -289,8 +289,6 @@ disp('phi:');
 disp(double(Phi));
 
 rho = (1/(PI))*(norm(Matrix_D))^2  % Interaction gain term
-
-delta_i_j = (1/(Phi * PI))*(norm(Matrix_D))^2 % In (22)
 
 clear x prog 
 
