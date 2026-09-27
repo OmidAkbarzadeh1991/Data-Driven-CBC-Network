@@ -14,7 +14,7 @@ x2 = linspace(-10, 10, 1000);
 [X1, X2] = meshgrid(x1, x2);
 
 % Define the function
-Z =    8.4503 * X1.^2 - 2.0223* X1 .* x2 + 5.6554* X2.^2 - 0.1054 * (X1.^2 + X2.^2);
+Z =    8.4503 * X1.^2 - 2.0223* X1 .* X2 + 5.6554* X2.^2 - 0.1054 * (X1.^2 + X2.^2);
 
 % Plot the surface
 figure;
