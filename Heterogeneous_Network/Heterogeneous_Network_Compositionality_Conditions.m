@@ -9,51 +9,61 @@ close all
 tic
 number_subsystems = 900; % Number of subsystems
 
-epsilon = 0.99; % Decay rate fixed a priori
+epsilon_local = 0.99; % Local decay rate epsilon_i
 
-delta_i_j_1 = 1.4757e-05; % subsystems: 1 - 300 
-delta_i_j_2 =  0.013201; % subsystems:  301
-delta_i_j_3 = 0.00036672;  % subsystems: 302 - 600
-delta_i_j_4 =  0.02336;  % subsystems:  601
-delta_i_j_5 = 0.0002347;  % subsystems: 602 - 900
+% Interaction gains rho_i reported in Table II
+rho = [1.15e-6, 1.0e-3, 4.62e-6, 1.0e-3, 2.89e-5];
+
+% Corresponding phi_i values used in the verification of Condition (16a)
+phi = [0.0783, 0.0785, 0.0789, 0.0790, 0.0794];
 
 %% ========================== Compositionality  ===========================
-aVec = zeros(number_subsystems,1);
-aVec(2:300)   = 1.4757e-05;   % subsystems: 1 - 300 
-aVec(301)     = 5.8888e-05;   % subsystems:  301
-aVec(302:600) = 0.00036672;   % subsystems: 302 - 600
-aVec(601)     = 0.0001325;    % subsystems:  601
-aVec(602:end) = 0.0002347;    % subsystems: 602 - 900
 
-% 2) assemble the matrix
-D = diag(-epsilon*ones(number_subsystems,1));    % main diagonal
-L = diag(aVec(2:end), -1);                       % sub-diagonal
+% For the line topology, Delta_{i,i-1} = rho_i / phi_{i-1}.
+aVec = zeros(number_subsystems,1);
+aVec(2:300)   = rho(1)/phi(1);
+aVec(301)     = rho(2)/phi(1);
+aVec(302)     = rho(3)/phi(2);
+aVec(303:600) = rho(3)/phi(3);
+aVec(601)     = rho(4)/phi(3);
+aVec(602)     = rho(5)/phi(4);
+aVec(603:end) = rho(5)/phi(5);
+
+% Assemble -hat{epsilon} + Delta
+D = diag(-epsilon_local*ones(number_subsystems,1));
+L = diag(aVec(2:end), -1);
 compose_mat = D + L;
 
-compose_mat(1,end) = 0;
+% Check compositional condition (24b)
+Composition = ones(1, number_subsystems) * compose_mat;
 
-% Check compositional condition
-disp('Checking compostional condition:');
+if all(Composition < 0)
 
-Compostion=ones(1, number_subsystems)*(compose_mat); % Compositionality condition in equation (23b)
+    disp('Compositional condition (24b) is satisfied.');
 
-if isempty(find(Compostion>0))
+    max_varpi = max(double(Composition));
+    epsilon_upper = -max_varpi;
 
-    disp('epsilon of network:');
-    disp(max(double(Compostion)));
-    msg2='Compostional condition (23b) is satisfied.';
+    disp('Maximum varpi_i:');
+    disp(max_varpi);
+
+    disp('Admissible upper bound on network epsilon:');
+    disp(epsilon_upper);
+
+    epsilon_network = 0.97;
+
+    if epsilon_network < epsilon_upper
+        disp('Selected network epsilon:');
+        disp(epsilon_network);
+    else
+        error('Selected network epsilon does not satisfy Theorem 3.');
+    end
 
 else
 
-    disp(double(Compostion(1)));
-    msg2='Compostional condition is NOT satisfied.';
+    disp('Compositional condition (24b) is NOT satisfied.');
 
 end
-
-border = repmat('-', 1, length(msg2) + 4);
-disp(border);
-disp(['* ', msg2, ' *']);
-disp(border);
 
 gamma_network = 300 * (121.1384) + 299 * ( 123.1940) + 299 * (125.6914) + 125.1777 + 127.8835
 
