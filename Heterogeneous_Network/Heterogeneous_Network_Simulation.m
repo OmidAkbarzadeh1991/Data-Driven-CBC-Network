@@ -222,26 +222,47 @@ x1_range = linspace(-10, 10, 100);
 x2_range = linspace(-10, 10, 100);
 [x1, x2] = meshgrid(x1_range, x2_range);
 
-% Five distinct local barrier functions corresponding to
-% subsystems 1-300, 301, 302-600, 601, and 602-900.
-Barrier_local = {
-    3.0597*x1.^2 - 1.4599*x1.*x2 + 2.7439*x2.^2
-    3.1479*x1.^2 - 1.5244*x1.*x2 + 2.7371*x2.^2
-    3.2505*x1.^2 - 1.6046*x1.*x2 + 2.7344*x2.^2
-    3.1924*x1.^2 - 1.5561*x1.*x2 + 2.7860*x2.^2
-    3.3016*x1.^2 - 1.6452*x1.*x2 + 2.7846*x2.^2
-};
+% Network-level CBC evaluated on the diagonal
+% x_1 = ... = x_900 = z.
+%
+% The five local barrier functions correspond to:
+% subsystems 1-300, subsystem 301, subsystems 302-600,
+% subsystem 601, and subsystems 602-900.
+% Therefore, the correct multiplicities are [300, 1, 299, 1, 299].
 
-gamma_local = [121.1384, 125.1777, 123.1940, 127.8835, 125.6914];
-beta_local  = [123.3770, 127.3447, 125.3563, 129.9200, 127.7447];
+Barrier_1 = 3.0597*x1.^2 - 1.4599*x1.*x2 + 2.7439*x2.^2;
+Barrier_2 = 3.1479*x1.^2 - 1.5244*x1.*x2 + 2.7371*x2.^2;
+Barrier_3 = 3.2505*x1.^2 - 1.6046*x1.*x2 + 2.7344*x2.^2;
+Barrier_4 = 3.1924*x1.^2 - 1.5561*x1.*x2 + 2.7860*x2.^2;
+Barrier_5 = 3.3016*x1.^2 - 1.6452*x1.*x2 + 2.7846*x2.^2;
 
-% Plot the local level sets B_i(x_i)=gamma_i and B_i(x_i)=beta_i.
-for q = 1:5
-    contour(x1, x2, Barrier_local{q} - gamma_local(q), [0 0], ...
-        'LineWidth', 1.5, 'LineColor', 'b');
-    contour(x1, x2, Barrier_local{q} - beta_local(q), [0 0], ...
-        'LineWidth', 1.5, 'LineColor', 'r', 'LineStyle', '--');
-end
+B_diag = ...
+      300*Barrier_1 ...
+    +     Barrier_2 ...
+    + 299*Barrier_3 ...
+    +     Barrier_4 ...
+    + 299*Barrier_5;
+
+gamma_network = ...
+      300*121.1384 ...
+    +     125.1777 ...
+    + 299*123.1940 ...
+    +     127.8835 ...
+    + 299*125.6914;
+
+beta_network = ...
+      300*123.3770 ...
+    +     127.3447 ...
+    + 299*125.3563 ...
+    +     129.9200 ...
+    + 299*127.7447;
+
+% Plot the single network-level contour pair B(x)=gamma and B(x)=beta.
+contour(x1, x2, B_diag - gamma_network, [0 0], ...
+    'LineWidth', 1.5, 'LineColor', 'b');
+
+contour(x1, x2, B_diag - beta_network, [0 0], ...
+    'LineWidth', 1.5, 'LineColor', 'r', 'LineStyle', '--');
 
 
 % === Plot regions ===
